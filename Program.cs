@@ -75,7 +75,6 @@ namespace Lab7
     public class Novel : INovel
     {
         private List<INovelElement> _elements = new List<INovelElement>();
-        
         private string _title;
 
         public Novel(string novelTitle)
@@ -90,12 +89,7 @@ namespace Lab7
 
         public void Add(object element)
         {
-            return; 
-        }
-
-        public void Add(INovelElement element)
-        {
-            _elements.Add(element);
+            _elements.Add((INovelElement) element);
         }
 
         public void Save()
