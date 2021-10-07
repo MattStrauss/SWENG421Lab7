@@ -17,6 +17,7 @@ namespace Lab7
     }
 
     public class Editor { 
+        
         private IEditor _novel;
 
         public Editor(IEditor el)
@@ -31,6 +32,7 @@ namespace Lab7
     }
 
     public class Writer { 
+        
         private IWriter _novel;
 
         public Writer(IWriter el)
@@ -45,6 +47,7 @@ namespace Lab7
     }
 
     public class Administrator { 
+        
         private INovel _novel;
 
         public Administrator(INovel el)
@@ -66,14 +69,13 @@ namespace Lab7
     }
     
     
-    public interface INovelElement : INovel
-    {
-    }
+    public interface INovelElement : INovel {}
 
 
     public class Novel : INovel
     {
         private List<INovelElement> _elements = new List<INovelElement>();
+        
         private string _title;
 
         public Novel(string novelTitle)
