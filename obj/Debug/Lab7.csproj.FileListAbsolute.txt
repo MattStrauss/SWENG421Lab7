@@ -1,0 +1,2 @@
+C:\Users\moond\Source\Repos\SWENG421Lab7\obj\Debug\Lab7.csproj.AssemblyReference.cache
+C:\Users\moond\Source\Repos\SWENG421Lab7\obj\Debug\Lab7.csproj.CoreCompileInputs.cache

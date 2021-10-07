@@ -5,18 +5,101 @@ namespace Lab7
 {
     public interface IEditor
     {
-        void Save(string title);
-        void Retrieve();
-        void Delete(string title); 
+        void Save();
+        INovelElement Retrieve();
+        void Delete(); 
     }
 
     public interface IWriter
     {
-        void View(string title);
-        void Edit(string title);
+        void View();
+        void Edit();
     }
 
-    public interface INovel : IEditor, IWriter
+    public interface IAdministrator
+    {
+        void Save();
+        INovelElement Retrieve();
+        void Delete(); 
+        void View();
+        void Edit();
+    }
+
+    public class Editor : IEditor{ 
+        Novel novel;
+
+        public Editor(Novel el)
+        {
+            novel = el;
+        }
+
+        public void Save(){
+            novel.Save();
+        }
+
+        public INovelElement Retrieve()
+        {
+            novel.Retrieve();
+        }
+
+        public void Delete()
+        {
+            novel.Delete();
+        } 
+    }
+
+    public class Writer : IWriter { 
+        Novel novel;
+
+        public Writer(Novel el)
+        {
+            novel = el;
+        }
+        public void View()
+        {
+            novel.View();
+        }
+        public void Edit()
+        {
+            novel.Edit();
+        }
+    }
+
+    public class Administrator : IAdministrator{ 
+        Novel novel;
+
+        public Administrator(Novel el)
+        {
+            novel = el;
+        }
+
+        public void Save()
+        {
+            novel.Save();
+        }
+
+        public INovelElement Retrieve()
+        {
+            novel.Retrieve();
+        }
+
+        public void Delete()
+        {
+            novel.Delete();
+        } 
+
+        public void View()
+        {
+            novel.View();
+        }
+
+        public void Edit()
+        {
+            novel.Edit();
+        }
+    }
+
+    public interface INovel
     {
         string GetTitle(); 
     }
@@ -39,27 +122,27 @@ namespace Lab7
     {
         private List<INovelElement> _elements = new List<INovelElement>();
         
-        public void Save(string title)
+         public void Save()
         {
             throw new NotImplementedException();
         }
 
-        public void Retrieve()
+        public INovelElement Retrieve()
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(string title)
+        public void Delete()
+        {
+            throw new NotImplementedException();
+        } 
+
+        public void View()
         {
             throw new NotImplementedException();
         }
 
-        public void View(string title)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Edit(string title)
+        public void Edit()
         {
             throw new NotImplementedException();
         }
@@ -77,27 +160,27 @@ namespace Lab7
     {
         private List<IPageElement> _elements = new List<IPageElement>();
         
-        public void Save(string title)
+         public void Save()
         {
             throw new NotImplementedException();
         }
 
-        public void Retrieve()
+        public INovelElement Retrieve()
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(string title)
+        public void Delete()
+        {
+            throw new NotImplementedException();
+        } 
+
+        public void View()
         {
             throw new NotImplementedException();
         }
 
-        public void View(string title)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Edit(string title)
+        public void Edit()
         {
             throw new NotImplementedException();
         }
@@ -117,15 +200,36 @@ namespace Lab7
             return _title; 
         }
 
-        public void Save(string title)
+        public void Save()
         {
-            Console.WriteLine("Saving " + title + "...");
-            Console.WriteLine(title + " Saved!");
+            Console.WriteLine("Saving " + _title + "...");
+            Console.WriteLine(_title + " Saved!");
         }
 
-        public abstract void Retrieve();
+        public abstract INovelElement Retrieve()
+        {
+            Console.WriteLine("Retrievin " + _title + "...");
+            return null;
+        }
 
 
+        public abstract void Delete(); 
+        // {
+        //     Console.WriteLine("Deleting " + _title + "...");
+        //     
+        //     var itemToDelete = _elements.Find(i => i.GetTitle() == _title);
+        //     
+        //     if (itemToDelete != null)
+        //     {
+        //         _elements.Remove(itemToDelete);
+        //     }
+        //
+        //     Console.WriteLine(_title + " Deleted");
+        // }
+
+        public void View()
+        {
+            
         // foreach (INovelElement element in _elements)
             // {
             //     if (element is Character)
@@ -136,34 +240,15 @@ namespace Lab7
             //         return; 
             //     }
             //     
-            //     element.Retrieve();
+            //     element.View();
             //
             //     return;
             // }
-
-
-        public abstract void Delete(string title); 
-        // {
-        //     Console.WriteLine("Deleting " + title + "...");
-        //     
-        //     var itemToDelete = _elements.Find(i => i.GetTitle() == title);
-        //     
-        //     if (itemToDelete != null)
-        //     {
-        //         _elements.Remove(itemToDelete);
-        //     }
-        //
-        //     Console.WriteLine(title + " Deleted");
-        // }
-
-        public void View(string title)
-        {
-            Console.WriteLine("Viewing " + title + "...");
         }
 
-        public void Edit(string title)
+        public void Edit()
         {
-            Console.WriteLine("Editing " + title + "...");
+            Console.WriteLine("Editing " + _title + "...");
         }
     }
 
@@ -176,12 +261,12 @@ namespace Lab7
     {
         private List<IFrameElement> _elements = new List<IFrameElement>();
         
-        public override void Retrieve()
+        public override INovelElement Retrieve()
         {
             throw new NotImplementedException();
         }
 
-        public override void Delete(string title)
+        public override void Delete()
         {
             throw new NotImplementedException();
         }
@@ -192,7 +277,7 @@ namespace Lab7
         
         private List<IColumnElement> _elements = new List<IColumnElement>();
         
-        public override void Retrieve()
+        public override INovelElement Retrieve()
         {
             throw new NotImplementedException();
         }
@@ -205,27 +290,27 @@ namespace Lab7
     
     public abstract class ColumnFrameElement : IPageElement
     {
-        public void Save(string title)
+        public void Save()
         {
             throw new NotImplementedException();
         }
 
-        public void Retrieve()
+        public INovelElement Retrieve()
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(string title)
+        public void Delete()
+        {
+            throw new NotImplementedException();
+        } 
+
+        public void View()
         {
             throw new NotImplementedException();
         }
 
-        public void View(string title)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Edit(string title)
+        public void Edit()
         {
             throw new NotImplementedException();
         }
@@ -252,6 +337,11 @@ namespace Lab7
     {
         private char _content;
 
+        public Character(char character)
+        {
+            _content = character;
+        }
+
         public char GetContent()
         {
             return _content; 
@@ -267,6 +357,31 @@ namespace Lab7
     {
         public static void Main(string[] args)
         {
+            Novel novel = new Novel("Oreo and Julieta");
+            CompositePageElement page = new Page();
+            CompositePageElement column = new Column();
+            CompositePageElement frame = new Frame();
+            CompositePageElement lineOfText = new LineOfText();
+            novel.Add(page);
+            page.Add(column);
+            page.Add(frame);
+            column.Add(lineOfText);
+            lineOfText.Add(new Character('S'));
+            lineOfText.Add(new Character('W'));
+            lineOfText.Add(new Character('E'));
+            lineOfText.Add(new Character('N'));
+            lineOfText.Add(new Character('G'));
+            
+            CompositePageElement frameColumn = new Column();
+            CompositePageElement frameLineOfText = new LineOfText();
+            frame.Add(frameColumn);
+            frameColumn.Add(frameLineOfText);
+            frameLineOfText.Add(new Character('4'));
+            frameLineOfText.Add(new Character('2'));
+            frameLineOfText.Add(new Character('1'));
+            
+            Writer James = new Writer();
+            James.View();
         }
     }
 }
