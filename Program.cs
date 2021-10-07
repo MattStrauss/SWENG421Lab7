@@ -16,105 +16,58 @@ namespace Lab7
         void Edit();
     }
 
-    public interface IAdministrator
-    {
-        void Save();
-        INovelElement Retrieve();
-        void Delete(); 
-        void View();
-        void Edit();
-    }
+    public class Editor { 
+        private IEditor _novel;
 
-    public class Editor : IEditor{ 
-        Novel novel;
-
-        public Editor(Novel el)
+        public Editor(IEditor el)
         {
-            novel = el;
+            _novel = el;
         }
 
-        public void Save(){
-            novel.Save();
-        }
-
-        public INovelElement Retrieve()
+        public IEditor GetNovel()
         {
-            novel.Retrieve();
-            return null;
-        }
-
-        public void Delete()
-        {
-            novel.Delete();
-        } 
-    }
-
-    public class Writer : IWriter { 
-        Novel novel;
-
-        public Writer(Novel el)
-        {
-            novel = el;
-        }
-        public void View()
-        {
-            novel.View();
-        }
-        public void Edit()
-        {
-            novel.Edit();
+            return _novel; 
         }
     }
 
-    public class Administrator : IAdministrator{ 
-        Novel novel;
+    public class Writer { 
+        private IWriter _novel;
 
-        public Administrator(Novel el)
+        public Writer(IWriter el)
         {
-            novel = el;
+            _novel = el;
         }
-
-        public void Save()
+        
+        public IWriter GetNovel()
         {
-            novel.Save();
-        }
-
-        public INovelElement Retrieve()
-        {
-            novel.Retrieve();
-            return null;
-        }
-
-        public void Delete()
-        {
-            novel.Delete();
-        } 
-
-        public void View()
-        {
-            novel.View();
-        }
-
-        public void Edit()
-        {
-            novel.Edit();
+            return _novel; 
         }
     }
 
-    public interface INovel
+    public class Administrator { 
+        private INovel _novel;
+
+        public Administrator(INovel el)
+        {
+            _novel = el;
+        }
+        
+        public INovel GetNovel()
+        {
+            return _novel; 
+        }
+    }
+
+    public interface INovel : IWriter, IEditor
     {
         string GetTitle(); 
+        
+        void Add(Object element);
     }
     
     
-    public interface INovelElement
+    public interface INovelElement : INovel
     {
-        void Add(Object element);
-        void Save();
-        INovelElement Retrieve();
-        void Delete();
-        void View();
-        void Edit();
     }
 
 
@@ -131,6 +84,11 @@ namespace Lab7
         public string GetTitle()
         {
             return _title;
+        }
+
+        public void Add(object element)
+        {
+            return; 
         }
 
         public void Add(INovelElement element)
@@ -182,7 +140,14 @@ namespace Lab7
     public class Page : INovelElement
     {
         private List<IPageElement> _elements = new List<IPageElement>();
-        
+
+        private string _title; 
+
+        public string GetTitle()
+        {
+            return _title;
+        }
+
         public void Add(Object element)
         {
             _elements.Add((IPageElement)element);
@@ -226,7 +191,14 @@ namespace Lab7
     }
 
     public abstract class CompositePageElement : IPageElement 
-    { 
+    {
+        private string _title; 
+
+        public string GetTitle()
+        {
+            return _title;
+        }
+
         public abstract void Add(Object element);
         public abstract void Save();
         public abstract INovelElement Retrieve();
@@ -335,6 +307,13 @@ namespace Lab7
     
     public abstract class ColumnFrameElement : IPageElement
     { 
+        private string _title; 
+
+        public string GetTitle()
+        {
+            return _title;
+        }
+        
         public abstract void Add(Object element);
         public abstract void Save();
         public abstract INovelElement Retrieve();
@@ -343,7 +322,7 @@ namespace Lab7
         public abstract void Edit();
     }
 
-    public class LineOfText : ColumnFrameElement, IColumnElement, ILineOfTextElement
+    public class LineOfText : ColumnFrameElement, IColumnElement
     {
         private List<ILineOfTextElement> _elements = new List<ILineOfTextElement>(); 
 
@@ -506,8 +485,7 @@ namespace Lab7
             frameLineOfText.Add(new Character('1'));
             
             Writer James = new Writer(novel);
-            James.View();
-            Console.Read();
+            James.GetNovel().View();
         }
     }
 }
